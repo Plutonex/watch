@@ -1,7 +1,7 @@
 {
     "name": "plutonex/watch",
     "description": "PHP watch",
-    "keywords":["agnostic","FBP","flow","plutonex"],
+    "keywords":["agnostic","observer","watch","plutonex"],
     "license":"BSD",
     "authors": [
         {
