@@ -20,10 +20,10 @@ abstract class Subject implements SubjectInterface
 	}
 
 
-	public function attach(ObserverInterface $observer)
+	public function attach(ObserverInterface $observer, $priority = 1)
 	{
         if (array_search($observer, $this->observers) === false) {
-            $this->observers[] = $observer;
+            $this->observers[$priority][] = $observer;
         }
 	}
 
@@ -32,10 +32,14 @@ abstract class Subject implements SubjectInterface
 	{
 		if(!empty($this->observers))
 		{
-			$index = array_search($observer, $this->observers);
-			if($index !== false)
+			foreach($this->observers as $priority => $observers)
 			{
-				unset($this->observer[$index]);
+				$index = array_search($observer, $this->observers[$priority]);
+
+				if($index !== false)
+				{
+					unset($this->observer[$priority][$index]);
+				}
 			}
 		}
 	}
@@ -45,9 +49,12 @@ abstract class Subject implements SubjectInterface
 	{
 		if(! empty($this->observers))
 		{
-			foreach($this->observers as $observer)
+			foreach($this->observers as $priority => $observers)
 			{
-				$observer->update($this);
+				foreach($observers as $observer)
+				{
+					$observer->update($this);
+				}
 			}
 		}
 	}
