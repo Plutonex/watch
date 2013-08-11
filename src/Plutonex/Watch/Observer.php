@@ -1,6 +1,6 @@
 <?php namespace Plutonex\Watch;
 
-abstract Observer implements ObserverInterface
+abstract class Observer implements ObserverInterface
 {
 
 	public function __construct(SubjectInterface $subject = null)
