@@ -15,7 +15,13 @@ abstract class Observer implements ObserverInterface
 	{
 		if(method_exists($this, $subject->getState()))
 		{
+			$subject->count();
 			call_user_func_array(array($this, $subject->getState()), array($subject));
 		}
+
+		return false;
 	}
+
+
+
 }

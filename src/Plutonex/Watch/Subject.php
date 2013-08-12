@@ -6,6 +6,8 @@ abstract class Subject implements SubjectInterface
 
 	protected $state = null;
 
+	protected $count = array();
+
 
 	public function getState()
 	{
@@ -53,7 +55,7 @@ abstract class Subject implements SubjectInterface
 			{
 				foreach($observers as $observer)
 				{
-					$observer->update($this);
+					$observer->update($this);			
 				}
 			}
 		}
@@ -63,5 +65,29 @@ abstract class Subject implements SubjectInterface
 	public function getObservers()
 	{
 		return $this->observers;
+	}
+
+	public function numObserversSent($state)
+	{
+		if(isset($this->count[$state]))
+		{
+			return $this->count[$state];
+		}
+		
+		return 0;
+	}
+
+	public function count()
+	{
+		$state = $this->getState();
+
+		if(isset($this->count[$state]))
+		{
+			$this->count[$state] = $this->count[$state] + 1;
+
+		} else
+		{
+			$this->count[$state] = 1;
+		}
 	}
 }
